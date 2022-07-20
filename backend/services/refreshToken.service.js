@@ -1,6 +1,6 @@
 import HTTPError from "../utils/HTTPError";
 import randToken from "rand-token";
-import { REFRESH_TOKEN_CHAR_LENGTH } from "../../config/enums";
+import { REFRESH_TOKEN_CHAR_LENGTH, REFRESH_TOKEN_EXPIRATION_TIME } from "../../config/enums";
 import RefreshTokenModel from "../models/RefreshToken.model";
 
 const refreshTokenService = {
@@ -10,6 +10,7 @@ const refreshTokenService = {
       { user: userId },
       {
         token: randomToken,
+        expiresIn: Date.now() + REFRESH_TOKEN_EXPIRATION_TIME,
       },
       { upsert: true }
     );

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import agent from "../utils/agent";
 
-export default function Home() {
+export default function Home({ data }) {
   const router = useRouter();
   return (
     <div className={styles.container}>
@@ -17,14 +17,15 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Main page</h1>
-        <Link href="/clientsidefetch" passHref>
-          <a>Client Side fetch</a>
-        </Link>
-        <Link href="/serversidefetch" passHref>
-          <a>Server Side fetch</a>
-        </Link>
+        <h1 className={styles.title}>Server Side fetch</h1>
+        <p className={styles.description}>
+          <strong>Result:</strong>{" "}
+          {data?.message}
+        </p>
 
+        <Link href="/" passHref>
+          <a>Back to Main page</a>
+        </Link>
         <button
           onClick={() =>
             agent()
@@ -39,8 +40,27 @@ export default function Home() {
   );
 }
 
+/**
+ * 
+ * @param {import("next").GetServerSidePropsContext} context 
+ * @returns 
+ */
 export async function getServerSideProps(context) {
-  return {
-    props: {},
-  };
+  try {
+    const res = await agent(context).example();
+    return {
+      props: { data: res.data },
+    };
+  } catch(err) {
+    // console.log(err);
+    console.log(err?.response?.data);
+    return {
+      redirect: {
+        permanent: false,
+        destination: context.resolvedUrl
+          ? `/login?from=${context.resolvedUrl}`
+          : "/login",
+      }
+    };
+  }
 }

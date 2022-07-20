@@ -8,3 +8,4 @@
  * use this:
  *      export * from "./<newmodelfile>";
  */
+export * from "./";

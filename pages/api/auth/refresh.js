@@ -12,7 +12,7 @@ import validator from "../../../backend/validation/validator";
 async function POST(req, res) {
   const { value, error } = validator.USER.refreshToken(req.body);
   if (error) {
-    throw new HTTPError("Validation error", 400, error.details);
+    throw new HTTPError("Validation error", 400, error);
   }
   let user = await refreshTokenService.verifyRefreshToken(value.refreshToken);
   let jwt = jwtService.createJWT(user.toJSON());

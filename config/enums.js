@@ -7,12 +7,10 @@
 export const {
   MONGO_DB_CONNECTION_URI,
   JWT_SECRET,
-  // Prefix NEXT_PUBLIC_ for all env that you want to use client-side
-  NEXT_PUBLIC_BACKEND_URL
 } = process.env;
 
 
 export const BCRYPT_HASH_ROUNDS = 12;
 export const REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week in milliseconds
 export const REFRESH_TOKEN_CHAR_LENGTH = 64;
-export const JWT_TOKEN_EXPIRATION_TIME = "10m"; // 10 minutes
+export const JWT_TOKEN_EXPIRATION_TIME = "30s"; // 10 minutes

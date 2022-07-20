@@ -14,7 +14,7 @@ async function POST(req, res) {
   // Validate request body
   const { value, error } = validator.USER.register(req.body);
   if (error) {
-    throw new HTTPError("Validation error", 400, error.details);
+    throw new HTTPError("Validation error", 400, error);
   }
 
   // Businesss logic

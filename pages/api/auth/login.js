@@ -13,7 +13,7 @@ import validator from "../../../backend/validation/validator";
 async function POST(req, res) {
   const { value, error } = validator.USER.login(req.body);
   if (error) {
-    throw new HTTPError("Validation error", 400, error.details);
+    throw new HTTPError("Validation error", 400, error);
   }
   const user = await usersService.login(value.email, value.password);
   const jwt = jwtService.createJWT(user.toJSON());

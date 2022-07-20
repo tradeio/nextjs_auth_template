@@ -8,6 +8,21 @@ import agent from "../utils/agent";
 
 export default function Home() {
   const router = useRouter();
+  const [query, setQuery] = useState({
+    isLoading: true,
+    data: null,
+    err: null,
+  });
+  useEffect(() => {
+    agent()
+      .example()
+      .then((res) => {
+        setQuery({ isLoading: false, data: res.data, err: null });
+      })
+      .catch((err) => {
+        setQuery({ isLoading: false, data: null, err });
+      });
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
@@ -17,14 +32,15 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Main page</h1>
-        <Link href="/clientsidefetch" passHref>
-          <a>Client Side fetch</a>
-        </Link>
-        <Link href="/serversidefetch" passHref>
-          <a>Server Side fetch</a>
-        </Link>
+        <h1 className={styles.title}>Client Side fetch</h1>
+        <p className={styles.description}>
+          <strong>Result:</strong>{" "}
+          {query.isLoading ? "Loading..." : query.data?.message}
+        </p>
 
+        <Link href="/" passHref>
+          <a>Back to Main page</a>
+        </Link>
         <button
           onClick={() =>
             agent()
