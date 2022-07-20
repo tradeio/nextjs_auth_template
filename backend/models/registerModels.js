@@ -8,4 +8,5 @@
  * use this:
  *      export * from "./<newmodelfile>";
  */
-export * from "./";
+export * from "./Users.model";
+export * from "./RefreshToken.model";

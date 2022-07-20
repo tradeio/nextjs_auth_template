@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { MONGO_DB_CONNECTION_URI } from "./enums";
+import "../backend/models/registerModels";
 
 /**
  * @returns {Promise<mongoose.Connection>} 
