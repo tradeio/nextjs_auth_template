@@ -2,6 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  env: {
+    AUTHENTICATION_PAGES: ["/login", "/register"],
+    PRIVATE_PAGES: [
+      "/",
+      "/clientsidefetch",
+      "/serversidefetch",
+    ]
+  },
   headers: [
     {
       source: "/api/(.*)",

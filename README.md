@@ -317,7 +317,16 @@ The following code is the onSubmit function of the `<Formik>` component
 
 ## Page Middleware:
 
-There is a typescript file in the root of the project `middleware.ts` that contains middleware functionality for all the project (api, pages, images etc...) this is NextJS own middleware support. In order to run diffent middleware base on paths there are some lists in the beginning of the file.
+There is a typescript file in the root of the project `middleware.ts` that contains middleware functionality for all the project (api, pages, images etc...) this is NextJS own middleware support. In order to run diffent middleware base on paths there are some lists in the beginning of the file. You can find configuration for it inside the `next.config.js` file. Change the following variables to match your needs.
 
-- `authenticationPages`: pages that allow the user to be authenticated (login, register) these pages will not be available if a user is logged in!(To force the user to use the logout function -> very important for security!)
-- `privatePagesWhitelist`: pages that can only be accessible by a logged in user (more accuratly if a user has JWT and rToken in cookies). These pages will not be available if a user is not logged in!
+- `AUTHENTICATION_PAGES`: pages that allow the user to be authenticated (login, register) these pages will not be available if a user is logged in!(To force the user to use the logout function -> very important for security!)
+- `PRIVATE_PAGES`: pages that can only be accessible by a logged in user (more accuratly if a user has JWT and rToken in cookies). These pages will not be available if a user is not logged in!
+
+```javascript
+const nextConfig = {
+  env: {
+    AUTHENTICATION_PAGES: ["/login", "/register"],
+    PRIVATE_PAGES: ["/", "/clientsidefetch", "/serversidefetch"],
+  },
+};
+```

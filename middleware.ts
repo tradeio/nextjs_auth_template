@@ -1,17 +1,10 @@
 import { getCookie } from "cookies-next";
 import { NextRequest, NextResponse } from "next/server";
 
-const authenticationPages = [
-  "/login", "/register",
-]
+const authenticationPages = new Array(process.env.AUTHENTICATION_PAGES).flat() ?? [];
+const privatePageWhitelist = new Array(process.env.PRIVATE_PAGES).flat() ?? [];;
 
-const privatePageWhitelist = [
-  "/",
-  "/clientsidefetch",
-  "/serversidefetch",
-];
-
-function authenticationPageMiddleware(req: NextRequest) {  
+function authenticationPageMiddleware(req: NextRequest) {
   const jwt = (req.cookies.get("jwt") ?? "").trim();
   const rToken = (req.cookies.get("rToken") ?? "").trim();
   if (rToken && jwt) {
