@@ -27,7 +27,7 @@ export default function getAxiosInstance(ctx) {
     async (error) => {
       const jwt = getCookie("jwt", ctx);
       const rToken = getCookie("rToken", ctx);
-      if([401, 403].includes(error.response.status)) {
+      if(error.response.status === 401 && error.response.data.code === "INVALID_JWT")  {
         try {
           let newJwt = await refreshAccessToken(rToken);
           setCookie("jwt", newJwt, ctx);

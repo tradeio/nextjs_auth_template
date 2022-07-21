@@ -17,8 +17,8 @@ export const useIsAuthenticated = async (req, res, next) => {
     next();
   } catch(err) {
     if(err.name === "TokenExpiredError") {
-      return next({ message: "Json web token expired", code: "JWT_EXPIRED"  }, 403);
+      return next({ message: "Json web token expired", code: "INVALID_JWT"  }, 401);
     }
-    return next({ message: "invalid authorization header or jwt token" }, 401);
+    return next({ message: "invalid authorization header or jwt token", code: "INVALID_JWT" }, 401);
   }
 }

@@ -19,20 +19,22 @@ function runMiddleware(req, res, ...args) {
   if (args.length > 0) {
     if (typeof args[0] === "function") {
       let run = false;
-      return args[0](req, res, (error, status = 500) => {
-        if (run) {
-          console.error(
-            "Middleware error: next() attempted to run more than once"
-          );
-          return;
-        }
-        run = true;
-        if (!error) {
-          runMiddleware(req, res, ...args.slice(1));
-        } else {
-          throw new HTTPError("Middleware error", status, error);
-        }
-      });
+      return new Promise((resolve, reject)=> {
+        args[0](req, res, (error, status = 500) => {
+          if (run) {
+            console.error(
+              "Middleware error: next() attempted to run more than once"
+            );
+            return;
+          }
+          run = true;
+          if (!error) {
+            resolve(runMiddleware(req, res, ...args.slice(1)));
+          } else {
+            reject(new HTTPError("Middleware error", status, error));
+          }
+        });
+      }) 
     } else {
       throw new Error("Middleware must be a function");
     }
