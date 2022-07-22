@@ -1,8 +1,8 @@
-import { getCookie } from "cookies-next";
 import { NextRequest, NextResponse } from "next/server";
 
-const authenticationPages = new Array(process.env.AUTHENTICATION_PAGES).flat() ?? [];
-const privatePageWhitelist = new Array(process.env.PRIVATE_PAGES).flat() ?? [];;
+const authenticationPages =
+  new Array(process.env.AUTHENTICATION_PAGES).flat() ?? [];
+const privatePageWhitelist = new Array(process.env.PRIVATE_PAGES).flat() ?? [];
 
 function authenticationPageMiddleware(req: NextRequest) {
   const jwt = (req.cookies.get("jwt") ?? "").trim();

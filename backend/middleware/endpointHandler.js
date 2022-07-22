@@ -1,7 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import HTTPError from "../utils/HTTPError";
 import Joi from "joi";
-import { isLocalURL } from "next/dist/shared/lib/router/router";
 import connectToMongoDB from "../../config/connectToMongoDB";
 
 const httpFunctionsSchema = Joi.object({
